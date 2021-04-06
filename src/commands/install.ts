@@ -1,3 +1,4 @@
+import fetch from "node-fetch"
 import { readFileSync, writeFileSync } from "fs"
 import { CommandModule } from "yargs"
 import { GlobalArguments } from "./global"
@@ -9,7 +10,7 @@ interface Arguments extends GlobalArguments {
 const command: CommandModule<GlobalArguments, Arguments> = {
   command: ["install <packages...>", "i"],
   describe: "add packages to your dependencies",
-  handler: (argv: Arguments) => {
+  handler: async (argv: Arguments) => {
     console.debug(`Read data from config "${argv.config}"`)
     const data = readFileSync(argv.config, "utf8")
 
@@ -21,16 +22,21 @@ const command: CommandModule<GlobalArguments, Arguments> = {
       parsed.dependencies = {}
     }
 
-    for (let pack of argv.packages) {
-      const m = pack.match(/^(.+)@(.+)$/)
-      const dep = m?.[1] ?? pack
-      const ver = m?.[2] ?? "**here should be version**"
+    for await (let dep of argv.packages) {
+      const m = dep.match(/^(.+)@(.+)$/)
+      const pack = m?.[1] ?? dep
+      const tag = m?.[2] ?? "latest"
 
-      parsed.dependencies[dep] = ver
+      const resp = await fetch(`https://registry.npmjs.org/${pack}`)
+      const data = await resp.json()
+
+      const ver = data["dist-tags"][tag] ?? tag
+
+      parsed.dependencies[pack] = ver
     }
 
     console.debug("Save file")
-    writeFileSync(argv.config, JSON.stringify(parsed))
+    writeFileSync(argv.config, JSON.stringify(parsed, void 0, 2))
   },
 }
 
