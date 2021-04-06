@@ -21,8 +21,13 @@ const command: CommandModule<GlobalArguments, Arguments> = {
       parsed.dependencies = {}
     }
 
-    for (let dep of argv.packages)
-      parsed.dependencies[dep] = "**here should be version**"
+    for (let pack of argv.packages) {
+      const m = pack.match(/^(.+)@(.+)$/)
+      const dep = m?.[1] ?? pack
+      const ver = m?.[2] ?? "**here should be version**"
+
+      parsed.dependencies[dep] = ver
+    }
 
     console.debug("Save file")
     writeFileSync(argv.config, JSON.stringify(parsed))
