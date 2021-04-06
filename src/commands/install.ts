@@ -1,5 +1,5 @@
-import fetch from "node-fetch"
 import { readFileSync, writeFileSync } from "fs"
+import { httpsPromise } from "../utils/https"
 import { CommandModule } from "yargs"
 import { GlobalArguments } from "./global"
 
@@ -27,8 +27,8 @@ const command: CommandModule<GlobalArguments, Arguments> = {
       const pack = m?.[1] ?? dep
       const tag = m?.[2] ?? "latest"
 
-      const resp = await fetch(`https://registry.npmjs.org/${pack}`)
-      const data = await resp.json()
+      const resp = await httpsPromise(`https://registry.npmjs.org/${pack}`)
+      const data = JSON.parse(resp.body)
 
       const ver = data["dist-tags"][tag] ?? tag
 
