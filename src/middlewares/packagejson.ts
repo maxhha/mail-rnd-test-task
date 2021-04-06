@@ -1,5 +1,5 @@
 import { MiddlewareFunction } from "yargs"
-import { GlobalArguments } from "../commands/global"
+import { GlobalArguments } from "../global"
 import { readJson } from "../utils/json"
 
 const validatePackageJson = (data: any, filename: string) => {

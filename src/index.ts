@@ -8,7 +8,7 @@ import packagejson from "./middlewares/packagejson"
 
 import install from "./commands/install"
 import info from "./commands/info"
-import { GlobalArguments } from "./commands/global"
+import { GlobalArguments } from "./global"
 
 const parser = (yargs(hideBin(process.argv)) as yargs.Argv<GlobalArguments>)
   .option("config", {

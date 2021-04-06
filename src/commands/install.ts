@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "fs"
 import { httpsPromise } from "../utils/https"
 import { CommandModule } from "yargs"
-import { GlobalArguments } from "./global"
+import { GlobalArguments } from "../global"
 
 interface Arguments extends GlobalArguments {
   packages: string[]

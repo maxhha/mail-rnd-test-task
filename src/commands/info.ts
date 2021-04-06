@@ -1,7 +1,7 @@
 import path from "path"
 import chalk from "chalk"
 import { CommandModule } from "yargs"
-import { GlobalArguments } from "./global"
+import { GlobalArguments } from "../global"
 
 const DEPENDENCIES_FIELDS = [
   "dependencies",
