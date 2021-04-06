@@ -5,6 +5,26 @@ import yargs, { config } from "yargs"
 import { hideBin } from "yargs/helpers"
 
 yargs(hideBin(process.argv))
+  .command<{ config: string }>(
+    ["info", "*"],
+    "list info of a project",
+    () => {},
+    (argv) => {
+      console.debug(`Read data from config "${argv.config}"`)
+      const data = readFileSync(argv.config, "utf8")
+
+      console.debug("Parse json")
+      const parsed = JSON.parse(data)
+
+      console.log(`${parsed.name}@${parsed.version}`)
+      console.log("dependencies:")
+
+      for (let [dep, ver] of Object.entries(parsed.dependencies)) {
+        console.log(`  ${dep}@${ver}`)
+      }
+      console.log()
+    }
+  )
   .command<{ packages: string[]; config: string }>(
     ["install <packages...>", "i"],
     "add packages to your dependencies",
