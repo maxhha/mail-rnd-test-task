@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/maxhha/mail-rnd-test-task#readme",
   "devDependencies": {
+    "@types/parse-json": "^4.0.0",
     "@types/node": "^12.0.0",
     "@types/node-fetch": "^2.5.9",
     "@types/yargs": "^16.0.1",
@@ -26,7 +27,9 @@
     "node": ">v12.0.0"
   },
   "dependencies": {
+    "chalk": "^4.1.0",
     "node-fetch": "^2.6.1",
+    "parse-json": "^5.2.0",
     "yargs": "^16.2.0"
   }
 }
