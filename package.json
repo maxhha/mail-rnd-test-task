@@ -6,6 +6,9 @@
     "build": "tsc --build",
     "dev": "npm run build && node ./build/index.js"
   },
+  "bin": {
+    "my-npm": "build/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/maxhha/mail-rnd-test-task.git"
@@ -19,7 +22,6 @@
   "devDependencies": {
     "@types/parse-json": "^4.0.0",
     "@types/node": "^12.0.0",
-    "@types/node-fetch": "^2.5.9",
     "@types/yargs": "^16.0.1",
     "typescript": "^4.2.3"
   },
@@ -28,7 +30,6 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
-    "node-fetch": "^2.6.1",
     "parse-json": "^5.2.0",
     "yargs": "^16.2.0"
   }
