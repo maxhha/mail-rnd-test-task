@@ -40,7 +40,7 @@ const validateDependency = async (dep: string) => {
     : data?.["dist-tags"]?.["latest"] && "^" + data["dist-tags"].latest
 
   if (!ver) {
-    throw new Error(`Cant find version for "${dep}"`)
+    throw new Error(`Cant find any version for "${dep}"`)
   }
 
   return { ver, name: data.name }
