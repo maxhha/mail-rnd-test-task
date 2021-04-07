@@ -6,7 +6,7 @@
     "dev": "npm run build && node ./build/index.js"
   },
   "main": "./build/index.js",
-  "bin":  {
+  "bin": {
     "mail-rnd-test-task": "./build/index.js",
     "maxhha-npm": "./build/index.js"
   },
