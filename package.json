@@ -8,7 +8,7 @@
   },
   "main": "build/index.js",
   "bin": {
-    "my-npm": "build/index.js"
+    "mail-rnd-test-task": "build/index.js"
   },
   "repository": {
     "type": "git",
