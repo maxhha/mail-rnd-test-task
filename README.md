@@ -1,6 +1,5 @@
 ## Usage
 
 ```
-npm install -g github:maxhha/mail-rnd-test-task#cli
-maxhha-npm
+npx @maxhha/mail-rnd-test-task
 ```
