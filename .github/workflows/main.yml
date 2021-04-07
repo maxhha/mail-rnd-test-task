@@ -2,7 +2,6 @@ name: CI
 
 on:
   push:
-    branches: [main]
     tags: [ "*" ]
 
 jobs:
@@ -32,3 +31,4 @@ jobs:
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+          access: public
