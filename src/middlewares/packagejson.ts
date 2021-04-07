@@ -1,3 +1,4 @@
+import { resolve } from "path"
 import { MiddlewareFunction } from "yargs"
 import { GlobalArguments } from "../global"
 import { readJson } from "../utils/json"
@@ -27,7 +28,7 @@ const validatePackageJson = (data: any, filename: string) => {
 }
 
 const middleware: MiddlewareFunction<GlobalArguments> = (argv) => {
-  const packagejson = readJson(argv.config)
+  const packagejson = readJson(resolve(argv.config))
 
   validatePackageJson(packagejson, argv.config)
 

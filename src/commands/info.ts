@@ -12,7 +12,7 @@ const DEPENDENCIES_FIELDS = [
 ]
 
 const command: CommandModule<GlobalArguments, GlobalArguments> = {
-  command: ["info", "*"],
+  command: "info",
   describe: "list info of a project",
   handler: (argv) => {
     console.log(chalk.gray(`${path.resolve(argv.config)}:`))
