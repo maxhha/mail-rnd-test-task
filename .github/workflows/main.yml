@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [main]
+    tags: [ "*" ]
 
 jobs:
   deploy:
@@ -22,10 +23,12 @@ jobs:
           git rm -rf --cached .
           git add package*
           git add -f build
-          git update-index --chmod=+x build/index.js
           git commit -m "Add build"
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: cli
           force: true
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
