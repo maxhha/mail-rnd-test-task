@@ -1,6 +1,6 @@
 import { writeFileSync } from "fs"
 import { httpsPromise } from "../utils/https"
-import { argv, CommandModule } from "yargs"
+import { argv, boolean, CommandModule } from "yargs"
 import { GlobalArguments } from "../global"
 import chalk from "chalk"
 import semver from "semver"
@@ -48,17 +48,34 @@ const validateDependency = async (dep: string) => {
 
 interface Arguments extends GlobalArguments {
   packages: string[]
+  type?: "dev" | "peer" | "bundle" | "opt"
+}
+
+const TYPE_TO_DEPENDENCY_NAME = {
+  dev: "devDependencies",
+  peer: "peerDependencies",
+  bundle: "bundledDependencies",
+  opt: "optionalDependencies",
 }
 
 const command: CommandModule<GlobalArguments, Arguments> = {
-  command: ["install <packages...>", "i"],
+  command: ["install [type] <packages...>", "i"],
   describe: "add packages to your dependencies",
+  builder: (yargs: any) =>
+    yargs.positional("type", {
+      aliases: ["t"],
+      choices: ["dev", "peer", "bundle", "opt"],
+    }),
   handler: async (argv: Arguments) => {
+    const depsName = argv.type
+      ? TYPE_TO_DEPENDENCY_NAME[argv.type]
+      : "dependencies"
+
     const parsed = argv.packagejson
 
-    if (!parsed.dependencies) {
-      parsed.dependencies = {}
-    } else if (typeof parsed.dependencies !== "object") {
+    if (!parsed[depsName]) {
+      parsed[depsName] = {}
+    } else if (typeof parsed[depsName] !== "object") {
       throw new Error("Field 'dependencies' in config file is not an object")
     }
 
@@ -68,7 +85,7 @@ const command: CommandModule<GlobalArguments, Arguments> = {
       try {
         const { name, ver } = await validateDependency(dep)
 
-        parsed.dependencies[name] = ver
+        parsed[depsName][name] = ver
 
         console.log(chalk.green(`✅ ${name}@${ver}`))
       } catch (err) {
