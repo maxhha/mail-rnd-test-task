@@ -1,6 +1,6 @@
 {
   "name": "@maxhha/mail-rnd-test-task",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "scripts": {
     "build": "tsc --build",
     "dev": "npm run build && node ./build/index.js"
